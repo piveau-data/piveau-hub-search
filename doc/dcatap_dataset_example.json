@@ -1,0 +1,140 @@
+{
+  "id": "436tff44n45844hf8fhfh4",
+  "title": {
+    "en": "Example Dataset",
+    "de": "Beispiel Datensatz"
+  },
+  "description": {
+    "en": "Example Description",
+    "de": "Beispiel Beschreibung"
+  },
+  "catalog": {
+    "title": "Example Catalog",
+    "description": "Example Description"
+  },
+  "contact_points": [
+    {
+      "type": "Individual",
+      "name": "John Doe",
+      "email": "mailto:john.doe@example.com",
+      "resource": "http://url"
+    }
+  ],
+  "distributions": [
+    {
+      "id": "dfhfzvcb44f9r438hdhd03jd",
+      "access_url": "http://url",
+      "download_urls": [
+        "http://url"
+      ],
+      "title": {
+        "en": "Example Distribution",
+        "de": "Beispiel Distribution"
+      },
+      "description": {
+        "en": "Example Description",
+        "de": "Beispiel Beschreibung"
+      },
+      "format": "XLS",
+      "license": {
+        "resource": "http://url",
+        "id": "CC-BY",
+        "title": "Creative Commons"
+      },
+      "byte_size": "45474",
+      "checksum": {
+        "algorithm": "spdx:checksumAlgorithm_sha1",
+        "checksum_value": "hexBinary"
+      },
+      "documentations": [
+        "http://url"
+      ],
+      "languages": [
+        "de",
+        "en"
+      ],
+      "linked_schemas": [
+        "http://url"
+      ],
+      "media_type": "application/json",
+      "release_date": "2018-12-06T07:34:16Z",
+      "modification_date": "2018-12-06T07:34:16Z",
+      "rights": "http://url",
+      "status": "Status"
+    }
+  ],
+  "keywords": [
+    "keyword1",
+    "keyword2"
+  ],
+  "publisher": {
+    "type": "Organization",
+    "name": "EC",
+    "email": "mailto:support@europe.eu",
+    "resource": "http://url"
+  },
+  "categories": [
+    {
+      "title": "Category 1",
+      "id": "cat1"
+    }
+  ],
+  "access_right": "public",
+  "conforms_to": [
+    {
+      "title": "Title",
+      "resource": "http://url"
+    }
+  ],
+  "documentations": [
+    "http://url"
+  ],
+  "frequency": {
+    "title": "Title",
+    "resource": "http://url"
+  },
+  "has_versions": [
+    "http://url"
+  ],
+  "identifiers": [
+    "http://url"
+  ],
+  "is_version_of": [
+    "http://url"
+  ],
+  "landing_page": [
+    "http://url"
+  ],
+  "languages": [
+    "de",
+    "en"
+  ],
+  "other_identifiers": [
+    "http://url"
+  ],
+  "provenances": [
+    {
+      "label": "Label",
+      "resource": "http://url"
+    }
+  ],
+  "related_resources": [
+    "http://url"
+  ],
+  "release_date": "2018-12-06T07:34:16Z",
+  "modification_date": "2018-12-06T07:34:16Z",
+  "sources": [
+    "http://url"
+  ],
+  "spatial": "ELASTICSPATIAL",
+  "temporal_coverages": [
+    {
+      "start_date": "2018-12-06T07:34:16Z",
+      "end_date": "2018-12-06T07:34:16Z"
+    }
+  ],
+  "version": "0.1",
+  "version_notes": [
+    "Version Notes"
+  ]
+}

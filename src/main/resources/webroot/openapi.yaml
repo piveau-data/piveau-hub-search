@@ -1,0 +1,1653 @@
+# Note: An invalid OpenAPI 3 yaml file will cause the following exception at startup:
+# io.vertx.ext.web.api.contract.RouterFactoryException: Wrong specification url/path: webroot/openapi.yaml
+
+openapi: 3.0.2
+
+info:
+  version: "1.0"
+  title: piveau-hub-search
+  x-logo:
+    url: "./piveau-logo.png"
+
+tags:
+- name: Search
+  x-displayName: "Search"
+- name: Feeds
+  x-displayName: "Feeds"
+- name: Datasets
+  x-displayName: "Datasets"
+- name: Catalogues
+  x-displayName: "Catalogues"
+# - name: Distributions
+#  x-displayName: "Distributions"
+- name: Gazetteer
+  x-displayName: "Gazetteer"
+- name: Ckan
+  x-displayName: "Ckan"
+
+paths:
+  /search:
+    get:
+      description: Make a search Query
+      summary: Search
+      operationId: searchGet
+      tags:
+      - Search
+      parameters:
+      - in: query
+        name: q
+        description: The query
+        schema:
+          type: string
+      - in: query
+        name: filter
+        description: Filter queries by document type
+        schema:
+          type: string
+          enum: ["dataset", "catalogue"]
+      - in: query
+        name: facets
+        description: Filter queries by facets (string as json, e.g. 'facets={"catalog":["catalog-x"]}')
+        schema:
+          type: string
+      - in: query
+        name: page
+        description: The page number of matching results
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: limit
+        description: The maximum number of matching datasets per page
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 1000
+      - in: query
+        name: fields
+        description: Filter queries by document fields (e.g. 'fields=title')
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: minDate
+        description: Filter queries by minimum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: maxDate
+        description: Filter queries by maximum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: boost
+        description: Boost document fields (boost.field=1.0 or boost.field.subfield=1.0, e.g. boost.title=3.0)
+        schema:
+          type: object
+      - in: query
+        name: globalAggregation
+        description: Counting of facets globally or locally (default true)
+        schema:
+          type: boolean
+      - in: query
+        name: facetOperator
+        description: Filtering queries by facets are combined with "AND" or "OR" (default "OR")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: facetGroupOperator
+        description: Filtering queries by facetgroups are combined with "AND" or "OR" (default "AND")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: bboxMinLon
+        description: Filter queries by bounding box minimum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLon
+        description: Filter queries by bounding box maximum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLat
+        description: Filter queries by bounding box maximum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: bboxMinLat
+        description: Filter queries by bounding box minimum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: sort
+        description: Sorting of the search result (usage "field+asc" or "field+desc", default is desc)
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: filterDistributions
+        description: If datasets are searched by facets distributions are returned filtered (default false)
+        schema:
+          type: boolean
+      - in: query
+        name: aggregation
+        description: Enables aggregation of facets (default true)
+        schema:
+          type: boolean
+      - in: query
+        name: includes
+        description: Descides which fields are included in the response (default all)
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      description: Make a search Query
+      summary: Search
+      operationId: searchPost
+      tags:
+      - Search
+      requestBody:
+        description: Query
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Query'
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /autocomplete:
+    get:
+      description: Make a search Query with autocomplete
+      summary: Autocomplete
+      operationId: searchAutocomplete
+      tags:
+      - Search
+      parameters:
+      - in: query
+        name: q
+        description: The query
+        schema:
+          type: string
+        required: false
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /{lang}/feeds/datasets.atom:
+    get:
+      description: Datasets Atom Endpoint
+      summary: Atom
+      operationId: datasets.atom
+      tags:
+      - Feeds
+      parameters:
+      - in: query
+        name: q
+        description: The query
+        schema:
+          type: string
+      - in: query
+        name: facets
+        description: Filter queries by facets (string as json, e.g. 'facets={"catalog":["catalog-x"]}')
+        schema:
+          type: string
+      - in: query
+        name: page
+        description: The page number of matching results
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: limit
+        description: The maximum number of matching datasets per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+      - in: query
+        name: fields
+        description: Filter queries by document fields (e.g. 'fields=title')
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: minDate
+        description: Filter queries by minimum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: maxDate
+        description: Filter queries by maximum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: boost
+        description: Boost document fields (boost.field=1.0 or boost.field.subfield=1.0, e.g. boost.title=3.0)
+        schema:
+          type: object
+      - in: query
+        name: globalAggregation
+        description: Counting of facets globally or locally (default true)
+        schema:
+          type: boolean
+      - in: query
+        name: facetOperator
+        description: Filtering queries by facets are combined with "AND" or "OR" (default "OR")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: facetGroupOperator
+        description: Filtering queries by facetgroups are combined with "AND" or "OR" (default "AND")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: bboxMinLon
+        description: Filter queries by bounding box minimum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLon
+        description: Filter queries by bounding box maximum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLat
+        description: Filter queries by bounding box maximum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: bboxMinLat
+        description: Filter queries by bounding box minimum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: sort
+        description: Sorting of the search result (usage "field+asc" or "field+desc", default is desc)
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: filterDistributions
+        description: If datasets are searched by facets distributions are returned filtered (default false)
+        schema:
+          type: boolean
+      - in: path
+        name: lang
+        description: The feed is returned in the requested language
+        schema:
+          type: string
+          enum: ["bg","es","cs","da","et","el","en","fr","ga","hr","it","lv","lt",
+                 "hu","mt","nl","pl","pt","ro","sk","sl","fi","sv","no","de"]
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /{lang}/feeds/datasets.rss:
+    get:
+      description: Datasets RSS Endpoint
+      summary: RSS
+      operationId: datasets.rss
+      tags:
+      - Feeds
+      parameters:
+      - in: query
+        name: q
+        description: The query
+        schema:
+          type: string
+      - in: query
+        name: facets
+        description: Filter queries by facets (string as json, e.g. 'facets={"catalog":["catalog-x"]}')
+        schema:
+          type: string
+      - in: query
+        name: page
+        description: The page number of matching results
+        schema:
+          type: integer
+          minimum: 0
+      - in: query
+        name: limit
+        description: The maximum number of matching datasets per page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+      - in: query
+        name: fields
+        description: Filter queries by document fields (e.g. 'fields=title')
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: minDate
+        description: Filter queries by minimum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: maxDate
+        description: Filter queries by maximum Date
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: boost
+        description: Boost document fields (boost.field=1.0 or boost.field.subfield=1.0, e.g. boost.title=3.0)
+        schema:
+          type: object
+      - in: query
+        name: globalAggregation
+        description: Counting of facets globally or locally (default true)
+        schema:
+          type: boolean
+      - in: query
+        name: facetOperator
+        description: Filtering queries by facets are combined with "AND" or "OR" (default "OR")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: facetGroupOperator
+        description: Filtering queries by facetgroups are combined with "AND" or "OR" (default "AND")
+        schema:
+          type: string
+          enum: ["AND", "OR"]
+      - in: query
+        name: bboxMinLon
+        description: Filter queries by bounding box minimum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLon
+        description: Filter queries by bounding box maximum longitude
+        schema:
+          type: number
+          format: float
+          minimum: -180
+          maximum: 180
+      - in: query
+        name: bboxMaxLat
+        description: Filter queries by bounding box maximum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: bboxMinLat
+        description: Filter queries by bounding box minimum latitude
+        schema:
+          type: number
+          format: float
+          minimum: -90
+          maximum: 90
+      - in: query
+        name: sort
+        description: Sorting of the search result (usage "field+asc" or "field+desc", default is desc)
+        schema:
+          type: array
+          items:
+            type: string
+      - in: query
+        name: filterDistributions
+        description: If datasets are searched by facets distributions are returned filtered (default false)
+        schema:
+          type: boolean
+      - in: path
+        name: lang
+        description: The feed is returned in the requested language
+        schema:
+          type: string
+          enum: ["bg","es","cs","da","et","el","en","fr","ga","hr","it","lv","lt",
+                 "hu","mt","nl","pl","pt","ro","sk","sl","fi","sv","no","de"]
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /sitemap:
+    get:
+      description: Sitemap Meta Endpoint
+      summary: Sitemap Meta
+      operationId: sitemapMeta
+      tags:
+        - Sitemap
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /sitemap/{id}:
+    get:
+      description: Sitemap Datasets Endpoint
+      summary: Sitemap Datasets
+      operationId: sitemapDatasets
+      tags:
+        - Sitemap
+      parameters:
+        - name: id
+          in: path
+          description: Id of the requested sitemap
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /datasets:
+    post:
+      description: Create a dataset
+      summary: Create a dataset
+      operationId: createDataset
+      tags:
+      - Datasets
+      parameters:
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Dataset'
+      responses:
+        '201':
+          $ref: '#/components/responses/DatasetSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /datasets/{id}:
+    get:
+      description: Get a dataset
+      summary: Get a dataset
+      operationId: readDataset
+      tags:
+      - Datasets
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested dataset
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      description: Create or Update a dataset
+      summary: Create or Update a dataset
+      operationId: createOrUpdateDataset
+      tags:
+      - Datasets
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated dataset
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccessId'
+        '201':
+          $ref: '#/components/responses/DatasetSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      description: Modify a dataset
+      summary: Modify a dataset
+      operationId: modifyDataset
+      tags:
+      - Datasets
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified dataset
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Dataset'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      description: Delete a dataset
+      summary: Delete a dataset
+      operationId: deleteDataset
+      tags:
+      - Datasets
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested dataset
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /bulk/datasets:
+    post:
+      description: Bulk-create of datasets, this operation is not atomic
+      summary: Bulk-create of datasets
+      operationId: createDatasetBulk
+      tags:
+      - Datasets
+      parameters:
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/DatasetArray'
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccessBulk'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      description: Bulk-create/update of datasets, this operation is not atomic
+      summary: Bulk-create/update of datasets
+      operationId: createOrUpdateDatasetBulk
+      tags:
+      - Datasets
+      parameters:
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/DatasetArray'
+      responses:
+        '200':
+          $ref: '#/components/responses/DatasetSuccessBulk'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+#    patch:
+#      description: Bulk-modify of datasets, this operation is not atomic
+#      summary: Bulk-modify of datasets
+#      operationId: modifyDatasetBulk
+#      tags:
+#      - Datasets
+#      security:
+#      - ApiKeyAuth: []
+#      requestBody:
+#        required: true
+#        content:
+#          'application/json':
+#            schema:
+#              $ref: '#/components/schemas/DatasetArray'
+#      responses:
+#        '200':
+#          $ref: '#/components/responses/DatasetSuccessBulk'
+#        '400':
+#          $ref: '#/components/responses/BadRequest'
+#        '500':
+#          $ref: '#/components/responses/InternalServerError'
+
+  /catalogues:
+    post:
+      description: Create a catalogue
+      summary: Create a catalogue
+      operationId: createCatalogue
+      tags:
+      - Catalogues
+      parameters:
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      security:
+      - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+      responses:
+        '201':
+          $ref: '#/components/responses/CatalogueSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /catalogues/{id}:
+    get:
+      description: Get a catalogue
+      summary: Get a catalogue
+      operationId: readCatalogue
+      tags:
+      - Catalogues
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested catalogue
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/CatalogueSuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      description: Create or Update a catalogue
+      summary: Create or Update a catalogue
+      operationId: createOrUpdateCatalogue
+      tags:
+      - Catalogues
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the created or updated catalogue
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/CatalogueSuccessId'
+        '201':
+          $ref: '#/components/responses/CatalogueSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    patch:
+      description: Modify a catalogue
+      summary: Modify a catalogue
+      operationId: modifyCatalogue
+      tags:
+      - Catalogues
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the modified catalogue
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: synchronous
+        description: If disbled the execution is asynchronous (response code 202)
+        schema:
+          type: boolean
+          default: true
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Catalogue'
+        required: true
+      responses:
+        '200':
+          $ref: '#/components/responses/CatalogueSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      description: Delete a catalogue
+      summary: Delete a catalogue
+      operationId: deleteCatalogue
+      tags:
+      - Catalogues
+      security:
+      - ApiKeyAuth: []
+      parameters:
+      - name: id
+        in: path
+        description: Id of the requested catalogue
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/CatalogueSuccessId'
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /gazetteer/autocomplete:
+    get:
+      description: Make a gazetteer autocomplete Query
+      summary: Gazetteer
+      operationId: gazetteerAutocomplete
+      tags:
+      - Gazetteer
+      parameters:
+      - in: query
+        name: q
+        description: The query string
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /ckan/package_search:
+    get:
+      description: Searches for packages satisfying a given search criteria
+      summary: Package search
+      operationId: ckanPackageSearch
+      tags:
+      - Ckan
+      parameters:
+      - in: query
+        name: q
+        description: The query
+        schema:
+          type: string
+      - in: query
+        name: fq
+        description: Any filter queries to apply
+        schema:
+          type: string
+      - in: query
+        name: sort
+        description: Sorting of the search results
+        schema:
+          type: string
+      - in: query
+        name: rows
+        description: The number of matching rows to return
+        schema:
+          type: integer
+      - in: query
+        name: start
+        description: The offset in the complete result for where the set of returned datasets should begin
+        schema:
+          type: integer
+      - in: query
+        name: facet
+        description: Whether to enable faceted results
+        schema:
+          type: boolean
+      - in: query
+        name: facet.mincount
+        description: The minimum counts for facet fields should be included in the results
+        schema:
+          type: integer
+      - in: query
+        name: facet.field
+        description: The minimum counts for facet fields should be included in the results
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /ckan/package_show:
+    get:
+      description: Return the metadata of a dataset (package) and its resources.
+      summary: Package show
+      operationId: ckanPackageShow
+      tags:
+      - Ckan
+      parameters:
+      - in: query
+        name: id
+        description: The id of the requested dataset
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/QuerySuccess'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+
+  securitySchemes:
+
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
+  schemas:
+
+    Query:
+      description: Query
+      type: object
+      properties:
+        q:
+          type: string
+          description: The query
+        filter:
+          type: string
+          description: Filter queries by document type
+          enum: ["dataset", "catalogue"]
+        facets:
+          type: object
+          description: Filter queries by facets (string as json, e.g. 'facets={"catalog":["catalog-x"]}')
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        page:
+          type: integer
+          minimum: 0
+          description: The page number of matching results
+        limit:
+          type: integer
+          description: The maximum number of matching datasets per page
+          minimum: 0
+          maximum: 1000
+        fields:
+          type: array
+          description: Filter queries by document fields (e.g. 'fields=title')
+          items:
+            type: string
+        searchParams:
+          type: object
+          properties:
+            minDate:
+              type: string
+              description: Filter queries by minimum Date
+              format: date-time
+            maxDate:
+              type: string
+              description: Filter queries by maximum Date
+              format: date-time
+            boundingBox:
+              $ref: '#/components/schemas/BoundingBox'
+        boost:
+          type: object
+          description: Boost document fields
+          additionalProperties:
+            type: number
+            description: Use field or field.subfield
+            format: float
+        globalAggregation:
+          type: boolean
+          description: Counting of facets globally or locally (default true)
+        facetOperator:
+          type: string
+          description: Filtering queries by facets are combined with "AND" or "OR" (default "OR")
+          enum: ["AND", "OR"]
+        facetGroupOperator:
+          type: string
+          description: Filtering queries by facetgroups are combined with "AND" or "OR" (default "AND")
+          enum: ["AND", "OR"]
+        sort:
+          type: array
+          description: Sorting of the search result (usage "field+asc" or "field+desc", default is desc)
+          items:
+            type: string
+        filterDistributions:
+          type: boolean
+          description: If datasets are searched by facets distributions are returned filtered (default false)
+        aggregation:
+          type: boolean
+          description: Enables aggregation of facets (default true)
+        includes:
+          type: array
+          description: Descides which fields are included in the response (default all)
+          items:
+            type: string
+
+    BoundingBox:
+      type: object
+      description: Filter queries by bounding box
+      properties:
+        minLon:
+          type: number
+          description: Minimum longitude
+          format: float
+          minimum: -180
+          maximum: 180
+        maxLon:
+          type: number
+          description: Maximum longitude
+          format: float
+          minimum: -180
+          maximum: 180
+        maxLat:
+          type: number
+          description: Maximum latitude
+          format: float
+          minimum: -90
+          maximum: 90
+        minLat:
+          type: number
+          description: Minimum latitude
+          format: float
+          minimum: -90
+          maximum: 90
+
+    DatasetArray:
+      description: A array of datasets
+      type: object
+      required:
+      - datasets
+      properties:
+        datasets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+          minItems: 1
+          maxItems: 100
+
+    Dataset:
+      description: A representation of a dataset
+      type: object
+      properties:
+        id:
+          type: string
+        idName:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        catalog:
+          type: object
+          required:
+          - id
+          properties:
+            id:
+              type: string
+        contact_points:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              name:
+                type: string
+              email:
+                type: string
+              resource:
+                type: string
+        distributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Distribution'
+        keywords:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - title
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+        publisher:
+          type: object
+          properties:
+            type:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+            resource:
+              type: string
+        categories:
+          type: array
+          items:
+            type: object
+            required:
+            - id
+            - title
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+              resource:
+                type: string
+        access_right:
+          type: string
+        conforms_to:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              resource:
+                type: string
+        documentations:
+          type: array
+          items:
+            type: string
+        frequency:
+          type: object
+          properties:
+            title:
+              type: string
+            resource:
+              type: string
+        has_versions:
+          type: array
+          items:
+            type: string
+        identifiers:
+          type: array
+          items:
+            type: string
+        other_identifiers:
+          type: array
+          items:
+            type: string
+        is_version_of:
+          type: array
+          items:
+            type: string
+        landing_page:
+          type: array
+          items:
+            type: string
+        languages:
+          type: array
+          items:
+            type: string
+        provenances:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              resource:
+                type: string
+        related_resources:
+          type: array
+          items:
+            type: string
+        release_date:
+          type: string
+          format: date-time
+        modification_date:
+          type: string
+          format: date-time
+        sources:
+          type: array
+          items:
+            type: string
+        spatial:
+          type: object
+        temporal_coverages:
+          type: array
+          items:
+            type: object
+            properties:
+              gte:
+                type: string
+                format: date-time
+              lte:
+                type: string
+                format: date-time
+        version:
+          type: string
+        version_notes:
+          type: array
+          items:
+            type: string
+        country:
+          type: object
+          required:
+          - id
+          - title
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        translation_meta:
+          type: object
+          properties:
+            full_available_languages:
+              type: array
+              items:
+                type: string
+            details:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  machine_translated:
+                    type: boolean
+                  original_language:
+                    type: string
+                  issued:
+                    type: string
+                    format: date-time
+                  received:
+                    type: string
+                    format: date-time
+            status:
+              type: string
+
+    CatalogueArray:
+      description: A array of catalogues
+      type: object
+      required:
+      - catalogues
+      properties:
+        catalogues:
+          type: array
+          items:
+            $ref: '#/components/schemas/Catalogue'
+          minItems: 1
+          maxItems: 100
+
+    Catalogue:
+      description: A representation of a catalogue
+      type: object
+      properties:
+        id:
+          type: string
+        idName:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        licence:
+          type: object
+          required:
+          - id
+          - title
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            resource:
+              type: string
+        publisher:
+          type: object
+          properties:
+            type:
+              type: string
+            name:
+              type: string
+            email:
+              type: string
+            resource:
+              type: string
+        languages:
+          type: array
+          items:
+            type: string
+        country:
+          type: object
+          required:
+          - id
+          - title
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        homepage:
+          type: string
+        issued:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+
+    DistributionArray:
+      description: A array of Distribution
+      type: object
+      required:
+      - distributions
+      properties:
+        distributions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Distribution'
+          minItems: 1
+          maxItems: 100
+
+    Distribution:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: object
+          additionalProperties:
+            type: string
+        description:
+          type: object
+          additionalProperties:
+            type: string
+        access_url:
+          type: string
+        download_urls:
+          type: array
+          items:
+            type: string
+        format:
+          type: object
+          required:
+          - id
+          - title
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+        licence:
+          type: object
+          required:
+          - id
+          - title
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+            resource:
+              type: string
+        byte_size:
+          type: integer
+        checksum:
+          type: object
+          properties:
+            algorithm:
+              type: string
+            checksum_value:
+              type: string
+        documentations:
+          type: array
+          items:
+            type: string
+        languages:
+          type: array
+          items:
+            type: string
+        linked_schemas:
+          type: array
+          items:
+            type: string
+        media_type:
+          type: string
+        release_date:
+          type: string
+          format: date-time
+        modification_date:
+          type: string
+          format: date-time
+        rights:
+          type: string
+        status:
+          type: string
+
+  responses:
+    DatasetSuccess:
+      description: Dataset response object
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: true
+              result:
+                $ref: '#/components/schemas/Dataset'
+    DatasetSuccessId:
+      description: Dataset response ID
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: true
+              result:
+                type: object
+                properties:
+                  id:
+                    type: string
+    DatasetSuccessBulk:
+      description: Dataset response bulk
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              datasets:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    status:
+                      type: integer
+                    message:
+                      type: string
+                    id:
+                      type: string
+    CatalogueSuccess:
+      description: Catalogue response object
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: true
+              result:
+                $ref: '#/components/schemas/Catalogue'
+    CatalogueSuccessId:
+      description: Catalogue response object
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: true
+              result:
+                type: object
+                properties:
+                  id:
+                    type: string
+    CatalogueSuccessBulk:
+      description: Catalogue response bulk
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              datasets:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                    status:
+                      type: integer
+                    message:
+                      type: string
+                    id:
+                      type: string
+    QuerySuccess:
+      description: The query was successfully processed
+      content:
+        'application/json':
+          schema:
+            type: object
+    BadRequest:
+      description: Validation error / Bad request
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: false
+              message:
+                type: string
+    NotFound:
+      description: Not found
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: false
+              message:
+                type: string
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        'application/json':
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                default: false
+              message:
+                type: string

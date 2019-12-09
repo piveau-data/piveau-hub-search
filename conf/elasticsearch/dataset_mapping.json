@@ -1,0 +1,2246 @@
+{
+  "dynamic": "strict",
+  "dynamic_templates": [
+    {
+      "title": {
+        "path_match": "title.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": {
+        "path_match": "description.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "catalog_title": {
+        "path_match": "catalog.title.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "catalog_description": {
+        "path_match": "catalog.description.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "distribution_title": {
+        "path_match": "distributions.title.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "distribution_description": {
+        "path_match": "distributions.description.*",
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    {
+      "translation_meta_details": {
+        "path_match": "translation_meta.details.*",
+        "match_mapping_type": "*",
+        "mapping": {
+          "dynamic": "strict",
+          "properties": {
+            "machine_translated": {
+              "enabled": false
+            },
+            "original_language": {
+              "enabled": false
+            },
+            "issued": {
+              "enabled": false
+            },
+            "received": {
+              "enabled": false
+            }
+          }
+        }
+      }
+    }
+  ],
+  "properties": {
+    "id": {
+      "type": "keyword",
+      "ignore_above": 8191,
+      "normalizer": "keyword_lowercase"
+    },
+    "idName": {
+      "type": "keyword",
+      "ignore_above": 8191,
+      "normalizer": "keyword_lowercase"
+    },
+    "title": {
+      "dynamic": true,
+      "properties": {
+        "bg": {
+          "type": "text",
+          "analyzer": "bulgarian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "es": {
+          "type": "text",
+          "analyzer": "spanish",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "cs": {
+          "type": "text",
+          "analyzer": "czech",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "da": {
+          "type": "text",
+          "analyzer": "danish",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "et": {
+          // Estonian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "el": {
+          "type": "text",
+          "analyzer": "greek",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "en": {
+          "type": "text",
+          "analyzer": "english",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "fr": {
+          "type": "text",
+          "analyzer": "french",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "ga": {
+          "type": "text",
+          "analyzer": "irish",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "hr": {
+          // Croatian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "it": {
+          "type": "text",
+          "analyzer": "italian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "lv": {
+          "type": "text",
+          "analyzer": "latvian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "lt": {
+          "type": "text",
+          "analyzer": "lithuanian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "hu": {
+          "type": "text",
+          "analyzer": "hungarian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "mt": {
+          // Maltese
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "nl": {
+          "type": "text",
+          "analyzer": "dutch",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "pl": {
+          // Polish
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "pt": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "ro": {
+          "type": "text",
+          "analyzer": "portuguese",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sk": {
+          // Slovak
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sl": {
+          // Slovenian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "fi": {
+          "type": "text",
+          "analyzer": "finnish",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sv": {
+          "type": "text",
+          "analyzer": "swedish",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "no": {
+          "type": "text",
+          "analyzer": "norwegian",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "de": {
+          "type": "text",
+          "analyzer": "german",
+          "fields": {
+            "autocomplete": {
+              "type": "text",
+              "analyzer": "edgengram_analyzer",
+              "search_analyzer": "standard"
+            },
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    "description": {
+      "dynamic": true,
+      "properties": {
+        "bg": {
+          "type": "text",
+          "analyzer": "bulgarian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "es": {
+          "type": "text",
+          "analyzer": "spanish",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "cs": {
+          "type": "text",
+          "analyzer": "czech",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "da": {
+          "type": "text",
+          "analyzer": "danish",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "et": {
+          // Estonian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "el": {
+          "type": "text",
+          "analyzer": "greek",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "en": {
+          "type": "text",
+          "analyzer": "english",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "fr": {
+          "type": "text",
+          "analyzer": "french",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "ga": {
+          "type": "text",
+          "analyzer": "irish",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "hr": {
+          // Croatian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "it": {
+          "type": "text",
+          "analyzer": "italian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "lv": {
+          "type": "text",
+          "analyzer": "latvian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "lt": {
+          "type": "text",
+          "analyzer": "lithuanian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "hu": {
+          "type": "text",
+          "analyzer": "hungarian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "mt": {
+          // Maltese
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "nl": {
+          "type": "text",
+          "analyzer": "dutch",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "pl": {
+          // Polish
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "pt": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "ro": {
+          "type": "text",
+          "analyzer": "portuguese",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sk": {
+          // Slovak
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sl": {
+          // Slovenian
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "fi": {
+          "type": "text",
+          "analyzer": "finnish",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "sv": {
+          "type": "text",
+          "analyzer": "swedish",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "no": {
+          "type": "text",
+          "analyzer": "norwegian",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "de": {
+          "type": "text",
+          "analyzer": "german",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    "catalog": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase",
+          "eager_global_ordinals": true
+        }
+      }
+    },
+    "contact_points": {
+      "properties": {
+        "type": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "email": {
+          "enabled": false
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "distributions": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase"
+        },
+        "title": {
+          "dynamic": true,
+          "properties": {
+            "bg": {
+              "type": "text",
+              "analyzer": "bulgarian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "es": {
+              "type": "text",
+              "analyzer": "spanish",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "cs": {
+              "type": "text",
+              "analyzer": "czech",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "da": {
+              "type": "text",
+              "analyzer": "danish",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "et": {
+              // Estonian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "el": {
+              "type": "text",
+              "analyzer": "greek",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "en": {
+              "type": "text",
+              "analyzer": "english",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "fr": {
+              "type": "text",
+              "analyzer": "french",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "ga": {
+              "type": "text",
+              "analyzer": "irish",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "hr": {
+              // Croatian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "it": {
+              "type": "text",
+              "analyzer": "italian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "lv": {
+              "type": "text",
+              "analyzer": "latvian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "lt": {
+              "type": "text",
+              "analyzer": "lithuanian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "hu": {
+              "type": "text",
+              "analyzer": "hungarian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "mt": {
+              // Maltese
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "nl": {
+              "type": "text",
+              "analyzer": "dutch",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "pl": {
+              // Polish
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "pt": {
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "ro": {
+              "type": "text",
+              "analyzer": "portuguese",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sk": {
+              // Slovak
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sl": {
+              // Slovenian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "fi": {
+              "type": "text",
+              "analyzer": "finnish",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sv": {
+              "type": "text",
+              "analyzer": "swedish",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "no": {
+              "type": "text",
+              "analyzer": "norwegian",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "de": {
+              "type": "text",
+              "analyzer": "german",
+              "fields": {
+                "autocomplete": {
+                  "type": "text",
+                  "analyzer": "edgengram_analyzer",
+                  "search_analyzer": "standard"
+                },
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            }
+          }
+        },
+        "description": {
+          "dynamic": true,
+          "properties": {
+            "bg": {
+              "type": "text",
+              "analyzer": "bulgarian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "es": {
+              "type": "text",
+              "analyzer": "spanish",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "cs": {
+              "type": "text",
+              "analyzer": "czech",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "da": {
+              "type": "text",
+              "analyzer": "danish",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "et": {
+              // Estonian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "el": {
+              "type": "text",
+              "analyzer": "greek",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "en": {
+              "type": "text",
+              "analyzer": "english",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "fr": {
+              "type": "text",
+              "analyzer": "french",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "ga": {
+              "type": "text",
+              "analyzer": "irish",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "hr": {
+              // Croatian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "it": {
+              "type": "text",
+              "analyzer": "italian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "lv": {
+              "type": "text",
+              "analyzer": "latvian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "lt": {
+              "type": "text",
+              "analyzer": "lithuanian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "hu": {
+              "type": "text",
+              "analyzer": "hungarian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "mt": {
+              // Maltese
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "nl": {
+              "type": "text",
+              "analyzer": "dutch",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "pl": {
+              // Polish
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "pt": {
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "ro": {
+              "type": "text",
+              "analyzer": "portuguese",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sk": {
+              // Slovak
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sl": {
+              // Slovenian
+              "type": "text",
+              "analyzer": "standard",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "fi": {
+              "type": "text",
+              "analyzer": "finnish",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "sv": {
+              "type": "text",
+              "analyzer": "swedish",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "no": {
+              "type": "text",
+              "analyzer": "norwegian",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "de": {
+              "type": "text",
+              "analyzer": "german",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            }
+          }
+        },
+        "access_url": {
+          "enabled": false
+        },
+        "download_urls": {
+          "enabled": false
+        },
+        "format": {
+          "properties": {
+            "id": {
+              "type": "keyword",
+              "ignore_above": 8191,
+              "normalizer": "keyword_lowercase",
+              "eager_global_ordinals": true
+            },
+            "title": {
+              "type": "text",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            }
+          }
+        },
+        "licence": {
+          "properties": {
+            "id": {
+              "type": "keyword",
+              "ignore_above": 8191,
+              "normalizer": "keyword_lowercase",
+              "eager_global_ordinals": true
+            },
+            "title": {
+              "type": "text",
+              "fields": {
+                "raw": {
+                  "type": "keyword",
+                  "ignore_above": 8191
+                }
+              }
+            },
+            "description": {
+              "type": "text",
+              "analyzer": "standard"
+            },
+            "resource": {
+              "enabled": false
+            },
+            "la_url": {
+              "enabled": false
+            }
+          }
+        },
+        "byte_size": {
+          "type": "integer"
+        },
+        "checksum": {
+          "properties": {
+            "algorithm": {
+              "type": "keyword",
+              "ignore_above": 8191,
+              "normalizer": "keyword_lowercase"
+            },
+            "checksum_value": {
+              "type": "binary"
+            }
+          }
+        },
+        "documentations": {
+          "enabled": false
+        },
+        "languages": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase"
+        },
+        "linked_schemas": {
+          "enabled": false
+        },
+        "media_type": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase"
+        },
+        "release_date": {
+          "type": "date"
+        },
+        "modification_date": {
+          "type": "date"
+        },
+        "rights": {
+          "enabled": false
+        },
+        "status": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase"
+        }
+      }
+    },
+    "keywords": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase",
+          "eager_global_ordinals": true
+        },
+        "title": {
+          "type": "text",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    "publisher": {
+      "properties": {
+        "type": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "name": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "email": {
+          "enabled": false
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "categories": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase",
+          "eager_global_ordinals": true
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "access_right": {
+      "type": "keyword",
+      "ignore_above": 8191,
+      "normalizer": "keyword_lowercase"
+    },
+    "conforms_to": {
+      "properties": {
+        "title": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "documentations": {
+      "enabled": false
+    },
+    "frequency": {
+      "properties": {
+        "title": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "has_versions": {
+      "enabled": false
+    },
+    "identifiers": {
+      "enabled": false
+    },
+    "other_identifiers": {
+      "enabled": false
+    },
+    "is_version_of": {
+      "enabled": false
+    },
+    "landing_page": {
+      "enabled": false
+    },
+    "languages": {
+      "type": "keyword",
+      "ignore_above": 8191,
+      "normalizer": "keyword_lowercase"
+    },
+    "provenances": {
+      "properties": {
+        "label": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase"
+        },
+        "resource": {
+          "enabled": false
+        }
+      }
+    },
+    "related_resources": {
+      "enabled": false
+    },
+    "release_date": {
+      "type": "date"
+    },
+    "modification_date": {
+      "type": "date"
+    },
+    "sources": {
+      "enabled": false
+    },
+    "spatial": {
+      "type": "geo_shape",
+      "ignore_malformed": true
+    },
+    "temporal_coverages": {
+      "type": "date_range"
+    },
+    "version": {
+      "enabled": false
+    },
+    "version_notes": {
+      "type": "text",
+      "analyzer": "standard",
+      "fields": {
+        "raw": {
+          "type": "keyword",
+          "ignore_above": 8191
+        }
+      }
+    },
+    "country": {
+      "properties": {
+        "id": {
+          "type": "keyword",
+          "ignore_above": 8191,
+          "normalizer": "keyword_lowercase",
+          "eager_global_ordinals": true
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "standard",
+          "fields": {
+            "raw": {
+              "type": "keyword",
+              "ignore_above": 8191
+            }
+          }
+        }
+      }
+    },
+    "translation_meta": {
+      "properties": {
+        "full_available_languages": {
+          "enabled": false
+        },
+        "details": {
+          "dynamic": true,
+          "properties": {
+            "bg": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "es": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "cs": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "da": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "et": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "el": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "en": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "fr": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "ga": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "hr": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "it": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "lv": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "lt": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "hu": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "mt": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "nl": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "pl": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "pt": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "ro": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "sk": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "sl": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "fi": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "sv": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "no": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            },
+            "de": {
+              "dynamic": "strict",
+              "properties": {
+                "machine_translated": {
+                  "enabled": false
+                },
+                "original_language": {
+                  "enabled": false
+                },
+                "issued": {
+                  "enabled": false
+                },
+                "received": {
+                  "enabled": false
+                }
+              }
+            }
+          }
+        },
+        "status": {
+          "enabled": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,91 @@
+
+POST http://localhost:8082/catalogues
+Authorization: e36ceca4-1523-4dca-9ba6-cc604dcae9a8
+Content-Type: application/json
+
+{
+  "country": {
+    "title": "Germany",
+    "id": "de"
+  },
+  "idName": "test",
+  "languages": [
+    "de"
+  ],
+  "description": {
+    "en": "This is a test catalogue"
+  },
+  "publisher": {
+    "name": "Test Publisher",
+    "type": "Agent",
+    "email": "http://www.test-publisher.de"
+  },
+  "modified": "2019-03-05T16:18:46Z",
+  "id": "test",
+  "title": {
+    "de": "Test Catalogue"
+  },
+  "issued": "2019-03-05T16:18:46Z"
+}
+
+###
+
+DELETE http://localhost:8082/catalogues/test
+Authorization: e36ceca4-1523-4dca-9ba6-cc604dcae9a8
+
+###
+
+POST http://localhost:8082/datasets
+Authorization: e36ceca4-1523-4dca-9ba6-cc604dcae9a8
+Content-Type: application/json
+
+{
+    "catalog": {
+      "id": "catalog-1"
+    },
+    "description": {
+      "de": "Test Datensatz",
+      "en": "Test Dataset"
+    },
+    "title": {
+      "de": "Umweltindikatoren NRW",
+      "en": "NRW: Umweltindikatoren NRW"
+    },
+    "idName": "79bdbb28-939c-47e5-8137-1e09a5511943",
+    "modification_date": "2019-03-05T19:19:07Z",
+    "id": "79bdbb28-939c-47e5-8137-1e09a5511943",
+    "distributions": [
+      {
+        "format": {
+          "title": "CSV",
+          "id": "csv"
+        },
+        "licence" : {
+          "resource" : "http://creativecommons.org/licenses/by-sa/3.0/nl/legalcode",
+          "id" : "CC-BY-SA3.0NL",
+          "title" : "CC-BY 3.0 NL"
+        },
+        "description": {
+          "de": "Gesamtdaten (Zeitreihendaten) aller\nOpenData gestellten NRWUmweltindikatoren"
+        },
+        "access_url": "https://www.lanuv.nrw.de/umweltindikatoren-nrw/indinrw_EPSG25832_csv.php",
+        "licence" : {
+          "resource" : "http://creativecommons.org/licenses/by-sa/3.0/nl/legalcode",
+          "la_url" : "https://www.europeandataportal.eu/en/content/show-license?license_id=CC-BY-SA3.0NL",
+          "id" : "CC-BY-SA3.0NL",
+          "title" : "CC-BY 3.0 NL",
+          "description" : "Naamsvermelding-GelijkDelen 3.0 Nederland"
+        }
+
+      }
+    ],
+    "spatial": {"type": "point", "coordinates": [-77.03653, 38.897676]},
+    "release_date": "2019-03-05T19:19:07Z"
+}
+
+###
+
+DELETE http://localhost:8082/datasets/79bdbb28-939c-47e5-8137-1e09a5511943
+Authorization: e36ceca4-1523-4dca-9ba6-cc604dcae9a8
+
+###

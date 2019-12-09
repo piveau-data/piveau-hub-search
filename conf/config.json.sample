@@ -1,0 +1,104 @@
+{
+  "VIADUCT_HUB_SEARCH_SERVICE_PORT": 8080,
+  "VIADUCT_HUB_SEARCH_BOOST": {
+    "title": 3.0
+  },
+  "VIADUCT_HUB_SEARCH_GAZETTEER_CONFIG": {
+    "url": "http://odp-smart.ppe-aws.europeandataportal.eu:8080/gazetteer/gazetteer/query"
+  },
+  "VIADUCT_HUB_SEARCH_CLI_CONFIG": {
+    "port": 8081,
+    "type": "http"
+  },
+  "VIADUCT_HUB_SEARCH_SITEMAP_CONFIG": {
+    "url": "https://www.europeandataportal.eu/data/",
+    "drupal": "https://www.europeandataportal.eu/sitemap_drupal.xml",
+    "languages": ["bg","es","cs","da","de","et","el","en","fr","ga","hr","it","lv","lt","hu","mt","nl","pl","pt","ro","sk","sl","fi","sv","no"],
+    "size": 10000
+  },
+  "VIADUCT_HUB_SEARCH_TITLE": "European Data Portal",
+  "VIADUCT_HUB_SEARCH_API_KEY": "########-####-####-####-############",
+  "VIADUCT_HUB_SEARCH_ES_CONFIG": {
+    "host": "localhost",
+    "port": 9200,
+    "index": {
+      "dataset": {
+        "max_agg_size": 50,
+        "max_result_window": 1500000,
+        "settings": "conf/elasticsearch/settings.json",
+        "mapping": "conf/elasticsearch/dataset_mapping.json",
+        "facets": [
+          {
+            "name": "country",
+            "title": "Countries",
+            "path": "country"
+          },
+          {
+            "name": "catalog",
+            "title": "Catalogues",
+            "path": "catalog"
+          },
+          {
+            "name": "categories",
+            "title": "Categories",
+            "path": "categories"
+          },
+          {
+            "name": "keywords",
+            "title": "Keywords",
+            "path": "keywords"
+          },
+          {
+            "name": "format",
+            "title": "Formats",
+            "path": "distributions.format"
+          },
+          {
+            "name": "licence",
+            "title": "Licences",
+            "path": "distributions.licence"
+          }
+        ]
+      },
+      "catalogue": {
+        "max_agg_size": 50,
+        "max_result_window": 10000,
+        "settings": "conf/elasticsearch/settings.json",
+        "mapping": "conf/elasticsearch/catalogue_mapping.json",
+        "facets": [
+          {
+            "name": "country",
+            "title": "Countries",
+            "path": "country"
+          }
+        ],
+        "searchParams": [
+          {
+            "name": "temporal",
+            "field": "issued"
+          }
+        ]
+      },
+      "distribution": {
+        "max_agg_size": 50,
+        "max_result_window": 10000,
+        "settings": "conf/elasticsearch/settings.json",
+        "mapping": "conf/elasticsearch/distribution_mapping.json",
+        "facets": [
+          {
+            "name": "format",
+            "title": "Formats",
+            "path": "format"
+          },
+          {
+            "name": "licence",
+            "title": "Licence",
+            "path": "licence"
+          }
+        ],
+        "searchParams": [
+        ]
+      }
+    }
+  }
+}

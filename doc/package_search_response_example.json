@@ -1,0 +1,37 @@
+{
+	// How many Datasets have been fetched?
+  	"count": 7418,
+  	// The sorting method/string you sent in the request
+	"sort": "metadata_modified desc",
+	// Which facets and how many of them are present in the datasets of the response
+	"facets": [{ 
+	  "idName": "field-one",
+	  "title": "Field One",
+	  "items": [{
+	    "count": 42,
+	    "idName": "facet-a",
+	    "title": "Facet A",
+	  }],
+	},{},{}],
+  	// The fetched Datasets
+  	"datasets": [{
+      	"categories": [{ "id": "energy-id-name", "title": "energy" }, {}],
+     	"description": "This is dataset1",
+        "distributions": [{}],
+      	"distributionFormats": ["csv", "pdf"],
+     	"id": "abc123qwe345",
+      	"idName": "dataset-1",
+      	"language": "EN",
+        "licence": "ABC Licence",
+        "modificationDate": "2002-02-02T00:00",
+        "organization": {
+            "image_url": "https://myimage.png",
+            "description": "Nobody talks about it.",
+            "name": "fight club",
+            "title": "Fight Club",
+        },
+        "releaseDate": "2001-01-01T00:00",
+        "tags": ["tag1", "tag2"],
+        "title": "dataset1",
+    },{},{}],
+};

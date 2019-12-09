@@ -1,0 +1,35 @@
+version: '3.0'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+    container_name: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+    networks:
+      - vhsnet
+    volumes:
+      - es-volume
+
+  viaduct-hub-search:
+    image: dockerhub.fokus.fraunhofer.de:5000/viaduct/viaduct-hub-search:latest
+    container_name: viaduct-hub-search
+    ports:
+      - 8080:8080
+      - 8081:8081
+    environment:
+      - VIADUCT_HUB_SEARCH_API_KEY=########-####-####-####-############
+      - VIADUCT_HUB_SEARCH_ES_CONFIG={"host":"elasticsearch","port":9200}
+    networks:
+      - vhsnet
+
+volumes:
+  es-volume:
+    driver: local
+
+networks:
+  vhsnet:
+    driver: bridge

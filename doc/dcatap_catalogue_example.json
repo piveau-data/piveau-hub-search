@@ -1,0 +1,30 @@
+{
+  "dataset": [],
+  "id": "govdata",
+  "description": {
+    "en": "Open Data Portal Germany",
+    "de": "Offenes Daten Portal Deutschland"
+  },
+  "publisher": {
+    "type": "Organization",
+    "name": "GovData",
+    "email": "info@govdata.de",
+    "resource": "http://url"
+  },
+  "title": {
+    "en": "GovData",
+    "de": "GovData"
+  },
+  "licence": {
+    "resource": "https://www.govdata.de/dl-de/by-2-0",
+    "id": "dl-de/by-2-0",
+    "title": "Data licence Germany – attribution – Version 2.0"
+  },
+  "homepage": "http://www.govdata.de",
+  "languages": [
+    "de",
+    "en"
+  ],
+  "issued": "2015-10-30T22:55:23:05Z",
+  "modified": "2018-10-30T22:55:23:05Z"
+}
